@@ -4,7 +4,7 @@ dotenv.config();
 
 const { Pool } = pg;
 
-const user = 'admin';
+const user = 'postgres';
 const password = process.env.POSTGRE_PASSWORD;
 const host = process.env.POSTGRE_HOST;
 const port = process.env.POSTGRE_PORT;

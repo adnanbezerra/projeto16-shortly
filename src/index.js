@@ -6,8 +6,7 @@ import urlRouter from './routers/urlRouter.js';
 
 dotenv.config();
 
-// const PORT = process.env.PORT;
-const PORT = 5000;
+const PORT = process.env.PORT;
 
 const server = express();
 server.use(cors());
@@ -18,5 +17,5 @@ server.use(userRouter);
 server.use(urlRouter);
 
 server.listen(PORT, () => {
-    console.log("It's alive!");
+    console.log(`It's alive on port ${PORT}`);
 })
