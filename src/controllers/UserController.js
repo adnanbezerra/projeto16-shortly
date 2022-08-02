@@ -19,8 +19,8 @@ export async function postSignin(req, res) {
     try {
         const token = uuid();
 
-        // const userId = res.locals.id;
-        // await connection.query(`INSERT INTO "currentSessions" ("userId", token) VALUES ($1, $2)`, [userId, token]);
+        const userId = res.locals.id;
+        await connection.query(`INSERT INTO "currentSessions" ("userId", token) VALUES ($1, $2)`, [userId, token]);
 
         res.status(200).send(token);
     } catch (error) {

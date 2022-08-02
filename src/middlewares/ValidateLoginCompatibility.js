@@ -8,7 +8,8 @@ export async function ValidateLoginCompatibility(req, res, next) {
     if(!dataFromDatabase[0]) return res.sendStatus(401);
 
     const userFromDatabase = dataFromDatabase[0];
-    
+    res.locals.id = dataFromDatabase[0].id;
+
     if(!bcrypt.compareSync(login.password, userFromDatabase.password)) return res.sendStatus(401);
 
     next();
