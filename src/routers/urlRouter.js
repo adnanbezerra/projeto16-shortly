@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteUrlById, getUrlById, openShortUrl, postUrlShorten } from "../controllers/UrlsController";
+import { deleteUrlById, getUrlById, openShortUrl, postUrlShorten } from "../controllers/UrlsController.js";
 
 const router = Router();
 

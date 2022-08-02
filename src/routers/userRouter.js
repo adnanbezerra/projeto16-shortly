@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getRanking, getUsersMe, postSignin, postSignup } from '../controllers/UserController';
+import { getRanking, getUsersMe, postSignin, postSignup } from '../controllers/UserController.js';
 
 const router = Router();
 
