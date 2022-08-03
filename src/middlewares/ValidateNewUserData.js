@@ -6,7 +6,7 @@ export function ValidateNewUserData(req, res, next) {
     if(newUser.password !== newUser.confirmPassword) return res.sendStatus(422);
 
     const validate = newUserSchema.validate(newUser);
-    if(validate.error) return res.sendStatus(422);
+    if(validate.error) return res.status(422).send(validate.error.details[0].message);
 
     next();
 }
