@@ -14,14 +14,18 @@ export async function postUrlShorten(req, res) {
         );
 
         res.status(201).send(shortUrl);
-        
+
     } catch (error) {
         console.error(error);
     };
 }
 
 export async function getUrlById(req, res) {
+    try {
 
+    } catch (error) {
+
+    }
 }
 
 export async function openShortUrl(req, res) {
