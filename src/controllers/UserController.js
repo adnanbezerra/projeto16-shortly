@@ -29,9 +29,42 @@ export async function postSignin(req, res) {
 }
 
 export async function getUsersMe(req, res) {
+    try {
+        const userId = res.locals.userId;
 
+        const { rows: userRows } = await connection.query(`SELECT id, name FROM users WHERE id = $1`, [userId]);
+        const { rows: linkRows } = await connection.query(`SELECT id, "shortUrl", url, "visitsCount" FROM urls WHERE "userId" = $1`, [userId]);
+
+        const response = getUsersMeResponse(userRows, linkRows);
+
+        res.status(200).send(response);
+    } catch (error) {
+        console.error(error);
+    };
 }
 
 export async function getRanking(req, res) {
 
+}
+
+// support functions
+
+function getUsersMeResponse(userRows, linkRows) {
+    const { id, name } = userRows[0];
+    const visitsCount = getVisitsCount(linkRows);
+    const shortenedUrls = [linkRows];
+
+    const response = {id, name, visitsCount, shortenedUrls};
+
+    return response;
+}
+
+function getVisitsCount(linkRows) {
+    let visitsCount = 0;
+
+    for(let i of linkRows) {
+        visitsCount += i.visitsCount;
+    }
+
+    return visitsCount;
 }

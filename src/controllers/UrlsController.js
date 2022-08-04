@@ -13,6 +13,11 @@ export async function postUrlShorten(req, res) {
         VALUES ($1, $2, $3)`, [shortUrl, url, userId]
         );
 
+        await connection.query(`
+        UPDATE users SET
+        "linksCount" = "linksCount" + 1
+        WHERE id=$1`, [userId]);
+
         res.status(201).send(shortUrl);
 
     } catch (error) {
@@ -35,8 +40,6 @@ export async function openShortUrl(req, res) {
         const longUrl = res.locals.longUrl;
         const id = res.locals.id;
         const newCount = res.locals.visitsCount + 1;
-
-        console.log(`url: ${longUrl}, id: ${id}, newCount: ${newCount}`);
 
         await connection.query(`UPDATE urls
             SET "visitsCount"=$1 

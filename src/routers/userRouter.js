@@ -4,12 +4,13 @@ import { ValidateLoginCompatibility } from '../middlewares/ValidateLoginCompatib
 import { ValidateLoginData } from '../middlewares/ValidateLoginData.js';
 import { ValidateNewUserData } from '../middlewares/ValidateNewUserData.js';
 import { ValidateNewUserEmail } from '../middlewares/ValidateNewUserEmail.js';
+import { ValidateSession } from '../middlewares/ValidateSession.js';
 
 const router = Router();
 
 router.post('/signup', ValidateNewUserData, ValidateNewUserEmail, postSignup);
 router.post('/signin', ValidateLoginData, ValidateLoginCompatibility, postSignin);
-router.get('/users/me', getUsersMe);
+router.get('/users/me', ValidateSession, getUsersMe);
 router.get('ranking', getRanking);
 
 export default router;
