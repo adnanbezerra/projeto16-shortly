@@ -1,6 +1,6 @@
 import connection from "../database/database.js";
 
-export async function ValidateOpenUrl(req, res, next) {
+export async function ValidateShortUrl(req, res, next) {
     try {
         const { shortUrl } = req.params;
 

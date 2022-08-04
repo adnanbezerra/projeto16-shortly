@@ -7,10 +7,10 @@ export async function ValidateSession(req, res, next) {
 
         const { rows: sessionRows } = await connection.query(`SELECT id FROM "currentSessions" WHERE token=$1`, [token]);
 
+        if (!sessionRows[0]) return res.sendStatus(401);
         const userId = sessionRows[0].id;
-        if (!userId) return res.sendStatus(401);
 
-        res.locals.id = parseInt(userId);
+        res.locals.userId = parseInt(userId);
 
         next()
 

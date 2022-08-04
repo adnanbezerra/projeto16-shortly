@@ -5,7 +5,7 @@ export async function postUrlShorten(req, res) {
     try {
         const { url } = req.body;
         const shortUrl = nanoid()
-        const userId = res.locals.id;
+        const userId = res.locals.userId;
 
         await connection.query(`
         INSERT INTO 
@@ -49,5 +49,13 @@ export async function openShortUrl(req, res) {
 }
 
 export async function deleteUrlById(req, res) {
+    try {
+        const id = parseInt(req.params.id);
 
+        await connection.query(`DELETE FROM urls WHERE id=$1`, [id]);
+
+        res.sendStatus(204);
+    } catch (error) {
+        console.error(error)
+    }
 }
