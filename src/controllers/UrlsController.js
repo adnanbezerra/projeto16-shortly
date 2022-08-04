@@ -22,10 +22,12 @@ export async function postUrlShorten(req, res) {
 
 export async function getUrlById(req, res) {
     try {
+        const urlInfo = res.locals.urlInfo;
 
+        res.status(200).send(urlInfo);
     } catch (error) {
-
-    }
+        console.error(error);
+    };
 }
 
 export async function openShortUrl(req, res) {
