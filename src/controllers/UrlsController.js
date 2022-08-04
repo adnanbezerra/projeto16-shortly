@@ -31,7 +31,21 @@ export async function getUrlById(req, res) {
 }
 
 export async function openShortUrl(req, res) {
+    try {
+        const longUrl = res.locals.longUrl;
+        const id = res.locals.id;
+        const newCount = res.locals.visitsCount + 1;
 
+        console.log(`url: ${longUrl}, id: ${id}, newCount: ${newCount}`);
+
+        await connection.query(`UPDATE urls
+            SET "visitsCount"=$1 
+            WHERE id=$2`, [newCount, id]);
+
+        res.redirect(longUrl);
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export async function deleteUrlById(req, res) {
