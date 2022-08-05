@@ -5,11 +5,10 @@ dotenv.config();
 const { Pool } = pg;
 
 const databaseConfig = {
-  host: 'localhost',
-  port: 5432,
-  user: 'postgres',
-  password: '123456',
-  database: 'projeto_x'
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+      rejectUnauthorized: false
+  }
 }
 
 const connection = new Pool(databaseConfig);
