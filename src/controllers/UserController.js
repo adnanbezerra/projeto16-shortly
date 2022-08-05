@@ -44,7 +44,21 @@ export async function getUsersMe(req, res) {
 }
 
 export async function getRanking(req, res) {
+    try {
+        const { rows: response } = await connection.query(`
+        SELECT users.id, users.name, users."linksCount", SUM(urls."visitsCount") AS "visitsCount"
+        FROM users
+        JOIN urls
+        ON users.id=urls."userId"
+        GROUP BY users.id
+        ORDER BY count(urls."visitsCount") desc
+        LIMIT 10
+        `);
 
+        res.status(200).send(response);
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 // support functions
@@ -54,7 +68,7 @@ function getUsersMeResponse(userRows, linkRows) {
     const visitsCount = getVisitsCount(linkRows);
     const shortenedUrls = [linkRows];
 
-    const response = {id, name, visitsCount, shortenedUrls};
+    const response = { id, name, visitsCount, shortenedUrls };
 
     return response;
 }
@@ -62,7 +76,7 @@ function getUsersMeResponse(userRows, linkRows) {
 function getVisitsCount(linkRows) {
     let visitsCount = 0;
 
-    for(let i of linkRows) {
+    for (let i of linkRows) {
         visitsCount += i.visitsCount;
     }
 

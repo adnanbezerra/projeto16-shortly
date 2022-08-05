@@ -11,6 +11,6 @@ const router = Router();
 router.post('/signup', ValidateNewUserData, ValidateNewUserEmail, postSignup);
 router.post('/signin', ValidateLoginData, ValidateLoginCompatibility, postSignin);
 router.get('/users/me', ValidateSession, getUsersMe);
-router.get('ranking', getRanking);
+router.get('/ranking', getRanking);
 
 export default router;
